@@ -53,7 +53,7 @@ if (isset($_POST['add'])) {
                     </div>
                     <div class="mb-3">
                         <label for="password" class="form-label">Password</label>
-                        <input type="text" class="form-control" name="password" id="password" required>
+                        <input type="text" class="form-control" name="password" id="password" required autocomplete="off">
                     </div>
                     <button type="submit" class="btn btn-primary" id="okBtn" name="add" value="add">OK</button>
                 </form>
