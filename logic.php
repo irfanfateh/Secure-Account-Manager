@@ -61,11 +61,19 @@ function find($data)
     $dData = decryptData($encryptedAccounts,  $data['master_pass']);
     if ($dData != false) {
         $decryptedAccounts = json_decode(decryptData($encryptedAccounts,  $data['master_pass']), true);
-        if (array_key_exists($data['platform'], $decryptedAccounts)) {
-            $accounts = $decryptedAccounts[$data['platform']];
+        $key = strtolower($data['platform']);
+        $accounts = null;
+        foreach ($decryptedAccounts as $platform => $account) {
+            if (strtolower($platform) === $key) {
+                $accounts = $account;
+                break;
+            }
+        }
+        if ($accounts !== null) {
             return $accounts;
         } else {
-            $msg = ['error' => 'your desired platform not found'];
+            $msg = ['error' => 'Your desired platform was not found'];
+            // Handle the error...
         }
     } else {
         $msg = ['error' => 'invalid key! system failed to decrypt your data.'];
