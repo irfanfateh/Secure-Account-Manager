@@ -62,14 +62,13 @@ function find($data)
     if ($dData != false) {
         $decryptedAccounts = json_decode(decryptData($encryptedAccounts,  $data['master_pass']), true);
         $key = strtolower($data['platform']);
-        $accounts = null;
+        $accounts = [];
         foreach ($decryptedAccounts as $platform => $account) {
             if (strtolower($platform) === $key) {
-                $accounts = $account;
-                break;
+                 $accounts = array_merge($accounts,$account);
             }
         }
-        if ($accounts !== null) {
+        if (count($accounts)>0) {
             return $accounts;
         } else {
             $msg = ['error' => 'Your desired platform was not found'];
